@@ -1,0 +1,14 @@
+{
+    "require": {
+        "slim/slim": "^3.0",
+        "monolog/monolog": "^1.23",
+        "slim/php-view": "^2.2",
+        "asyncphp/doorman": "^3.0",
+        "doctrine/coding-standard": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Classes\\": "Classes/"
+        }
+    }
+}

@@ -1,0 +1,33 @@
+<html>
+<head>
+    <!-- Include Required Prerequisites -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css"/>
+
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css"/>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <form action="/login" method="post">
+                <div class="form-group" style="display: inline-block">
+                    <?if(isset($auth) && !empty($auth) && $auth === "0"):?>
+                    <h2>Geçersiz kullanıcı adı veya şifre</h2>
+                    <?endif;?>
+                    <input class="form-control" name="username" type="text" placeholder="Kullanıcı Adı">
+                    <input class="form-control"  name="password" type="password" placeholder="Şifre">
+
+                    <input class="form-control" type="submit"></input>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
