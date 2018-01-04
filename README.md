@@ -1,5 +1,9 @@
 <h1>FIRST TODOS</h1>
 Replace all placeholders in the project. They are formatted as <pre>!!.*!!</pre>
+<h1>BEFORE COMMIT</h1>
+Run below command to fix source code regarding PSR-1 and PSR-2 coding styles.
+<pre>php php-cs-fixer-v2.phar fix ./ --verbose --show-progress=estimating
+</pre>
 <h1>Async jobs</h1>
 <h2>Handlers</h2>
 A custom class implementing AsyncPHP\Doorman\Handler should be created. This handler takes a Task object. Using this
