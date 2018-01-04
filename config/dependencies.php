@@ -68,7 +68,7 @@ $container['errorHandler'] = function ($c) {
         }
         if ($error instanceof \Error) {
             $logger->error($text);
-        } else if ($error instanceof \Exception) {
+        } elseif ($error instanceof \Exception) {
             $logger->warning($text);
         } else {
             $logger->notice($text);
@@ -89,7 +89,7 @@ $container['phpErrorHandler'] = function ($c) {
 
 
 $dbSettings = $container->get("settings")["db"];
-if ( ! empty($dbSettings)) {
+if (! empty($dbSettings)) {
     foreach ($dbSettings as $dbType => $dbInfo) {
         foreach ($dbInfo as $name => $dbSetting) {
             if ($dbType === "mysql") {

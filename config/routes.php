@@ -21,7 +21,7 @@ $app->get('/logout', function (Request $req, Response $res, $args = []) {
 });
 
 $app->get('/login', function (Request $req, Response $res, $args = []) {
-    if(array_key_exists('auth',$req->getQueryParams())){
+    if (array_key_exists('auth', $req->getQueryParams())) {
         $auth = $req->getQueryParams()['auth'];
     }
     $res  = $this->view->render($res, "login.phtml", ["auth" => $auth]);
@@ -29,7 +29,6 @@ $app->get('/login', function (Request $req, Response $res, $args = []) {
 });
 
 $app->post('/login', function (Request $req, Response $res, $args = []) {
-
     $username = $req->getParsedBody()['username'];
     $password = $req->getParsedBody()['password'];
 
@@ -45,11 +44,10 @@ $app->post('/login', function (Request $req, Response $res, $args = []) {
 });
 
 $app->get('/', function (Request $req, Response $res, $args = []) {
-    if ( ! Auth::isAuthenticated()) {
+    if (! Auth::isAuthenticated()) {
         return $res->withRedirect("/login");
     }
 
     $res = $this->view->render($res, "index.phtml");
     return $res;
 });
-
