@@ -8,6 +8,7 @@
 
 
 use Classes\Container;
+use Monolog\ErrorHandler;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
@@ -31,6 +32,16 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
+$handler = new ErrorHandler($container->get("logger"));
+$handler->registerErrorHandler([], false);
+$handler->registerExceptionHandler();
+$handler->registerFatalHandler();
+
+/**
+ * This dependency is required to log errors via monolog which are catched by slim application. Slim displays on screen
+ * or writes to php error log according to displayErrorDetails flag in settings. The ones that are not catched by slim
+ * application are handled by Monolog\ErrorHandler above.
+*/
 $container['errorHandler'] = function ($c) {
     return function (Psr\Http\Message\ServerRequestInterface $request, Psr\Http\Message\ResponseInterface $response, Throwable $error) use ($c) {
         /**

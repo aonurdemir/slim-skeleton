@@ -8,13 +8,8 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = new \Slim\App(require __DIR__ . '/../config/settings.php');
 Container::setContainer($app->getContainer());
+
 require __DIR__ . '/../config/dependencies.php';
-
-$handler = new ErrorHandler($app->getContainer()->get("logger"));
-$handler->registerErrorHandler([], false);
-$handler->registerExceptionHandler();
-$handler->registerFatalHandler();
-
 require __DIR__ . '/../config/middlewares.php';
 require __DIR__ . '/../config/routes.php';
 

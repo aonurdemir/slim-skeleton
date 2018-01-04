@@ -40,7 +40,7 @@ return [
         'logger' => [
             'name' => '!!LOGGER_NAME!!',
             'path' => __DIR__ . '/../logs/!!app!!.log',
-            'level' => \Monolog\Logger::ERROR,
+            'level' => \Monolog\Logger::DEBUG,
         ]
     ]
 ];
