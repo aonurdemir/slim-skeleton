@@ -127,20 +127,20 @@ $container['dm'] = function ($c){
         throw new RuntimeException('Install dependencies to run this script.');
     }
 
-    $loader = require_once $file;
-    $loader->add('Documents', __DIR__.'/../Odm');
+    $loader = require $file;
+    $loader->add('Documents', __DIR__.'/../Classes/Odm');
 
     AnnotationRegistry::registerLoader([$loader, 'loadClass']);
 
     $connection = new Connection();
 
     $config = new Configuration();
-    $config->setProxyDir(__DIR__.'/../Odm' . '/Proxies');
+    $config->setProxyDir(__DIR__.'/../Classes/Odm' . '/Proxies');
     $config->setProxyNamespace('Proxies');
-    $config->setHydratorDir(__DIR__.'/../Odm' . '/Hydrators');
+    $config->setHydratorDir(__DIR__.'/../Classes/Odm' . '/Hydrators');
     $config->setHydratorNamespace('Hydrators');
     $config->setDefaultDB('doctrine_odm');
-    $config->setMetadataDriverImpl(AnnotationDriver::create(__DIR__.'/../Odm' . '/Documents'));
+    $config->setMetadataDriverImpl(AnnotationDriver::create(__DIR__.'/../Classes/Odm' . '/Documents'));
 
     $dm = DocumentManager::create($connection, $config);
 
