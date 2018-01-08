@@ -8,6 +8,11 @@
 
 
 use Classes\Container;
+use Doctrine\Common\Annotations\AnnotationRegistry;
+use Doctrine\MongoDB\Connection;
+use Doctrine\ODM\MongoDB\Configuration;
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
 use Monolog\ErrorHandler;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\RotatingFileHandler;
@@ -116,3 +121,30 @@ if (! empty($dbSettings)) {
 
 
 $container['view'] = new \Slim\Views\PhpRenderer("../templates/");
+
+$container['dm'] = function ($c){
+    if ( ! file_exists($file = __DIR__.'/../vendor/autoload.php')) {
+        throw new RuntimeException('Install dependencies to run this script.');
+    }
+
+    $loader = require_once $file;
+    $loader->add('Documents', __DIR__.'/../Odm');
+
+    AnnotationRegistry::registerLoader([$loader, 'loadClass']);
+
+    $connection = new Connection();
+
+    $config = new Configuration();
+    $config->setProxyDir(__DIR__.'/../Odm' . '/Proxies');
+    $config->setProxyNamespace('Proxies');
+    $config->setHydratorDir(__DIR__.'/../Odm' . '/Hydrators');
+    $config->setHydratorNamespace('Hydrators');
+    $config->setDefaultDB('doctrine_odm');
+    $config->setMetadataDriverImpl(AnnotationDriver::create(__DIR__.'/../Odm' . '/Documents'));
+
+    $dm = DocumentManager::create($connection, $config);
+
+    return $dm;
+};
+
+
