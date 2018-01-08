@@ -6,7 +6,6 @@ use Classes\Session;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-
 final class SessionMiddleware
 {
     protected $options = [

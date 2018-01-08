@@ -13,7 +13,8 @@ use Classes\Session;
 
 class Auth
 {
-    public static function credentialsValid(string $username, string $password) : bool {
+    public static function credentialsValid(string $username, string $password) : bool
+    {
         if ($username === Container::getContainer()->get("settings")["auth"]["username"] && $password === Container::getContainer()->get("settings")["auth"]["password"]) {
             return true;
         }
@@ -27,10 +28,10 @@ class Auth
             return true;
         }
         return false;
-
     }
 
-    public static function login(){
+    public static function login()
+    {
         Session::regenerate(true);
         Session::set("loggedIn", true);
         return true;
