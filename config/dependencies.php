@@ -23,7 +23,7 @@ use Monolog\Processor\WebProcessor;
 
 $container = Container::getContainer();
 
-$container['logger'] = function ($c) {
+$container['logger'] = function (/** @noinspection PhpUnusedParameterInspection */ $c) {
     $loggerSettings = Container::getContainer()->get("settings")["logger"];
     $logger = new Logger($loggerSettings["name"]);
 
@@ -98,7 +98,7 @@ if (! empty($dbSettings)) {
     foreach ($dbSettings as $dbType => $dbInfo) {
         foreach ($dbInfo as $name => $dbSetting) {
             if ($dbType === "mysql") {
-                $container["mysql-$name"] = function ($c) use ($dbSetting) {
+                $container["mysql-$name"] = function (/** @noinspection PhpUnusedParameterInspection */ $c) use ($dbSetting) {
                     $dbhost   = $dbSetting['host'];
                     $dbuser   = $dbSetting['user'];
                     $dbpass   = $dbSetting['pass'];
@@ -122,29 +122,6 @@ if (! empty($dbSettings)) {
 
 $container['view'] = new \Slim\Views\PhpRenderer("../templates/");
 
-$container['dm'] = function ($c){
-    if ( ! file_exists($file = __DIR__.'/../vendor/autoload.php')) {
-        throw new RuntimeException('Install dependencies to run this script.');
-    }
-
-    $loader = require $file;
-    $loader->add('Documents', __DIR__.'/../Classes/Odm');
-
-    AnnotationRegistry::registerLoader([$loader, 'loadClass']);
-
-    $connection = new Connection();
-
-    $config = new Configuration();
-    $config->setProxyDir(__DIR__.'/../Classes/Odm' . '/Proxies');
-    $config->setProxyNamespace('Proxies');
-    $config->setHydratorDir(__DIR__.'/../Classes/Odm' . '/Hydrators');
-    $config->setHydratorNamespace('Hydrators');
-    $config->setDefaultDB('doctrine_odm');
-    $config->setMetadataDriverImpl(AnnotationDriver::create(__DIR__.'/../Classes/Odm' . '/Documents'));
-
-    $dm = DocumentManager::create($connection, $config);
-
-    return $dm;
+$container['dm'] = function (/** @noinspection PhpUnusedParameterInspection */ $c) use ($autoloader) {
+    return require __DIR__.'/odm-config.php';
 };
-
-

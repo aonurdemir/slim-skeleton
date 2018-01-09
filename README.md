@@ -4,6 +4,20 @@ Replace all placeholders in the project. They are formatted as <pre>!!.*!!</pre>
 Run below command to fix source code regarding PSR-1 and PSR-2 coding styles.
 <pre>php php-cs-fixer-v2.phar fix ./ --verbose --show-progress=estimating
 </pre>
+<h1>DOCTRINE ODM CONSOLE COMMANDS</h1>
+<PRE>
+odm:clear-cache:metadata - Clear all metadata cache of the various cache drivers.
+odm:query - Query mongodb and inspect the outputted results from your document classes.
+odm:generate:documents - Generate document classes and method stubs from your mapping information.
+odm:generate:hydrators - Generates hydrator classes for document classes.
+odm:generate:proxies - Generates proxy classes for document classes.
+odm:generate:repositories - Generate repository classes from your mapping information.
+odm:schema:create - Allows you to create databases, collections and indexes for your documents
+odm:schema:drop - Allows you to drop databases, collections and indexes for your documents
+odm:schema:update - Allows you to update indexes for your documents
+odm:schema:shard - Allows you to enable sharding for your documents
+<PRE>
+http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/console-commands.html
 <h1>Async jobs</h1>
 <h2>Handlers</h2>
 A custom class implementing AsyncPHP\Doorman\Handler should be created. This handler takes a Task object. Using this
