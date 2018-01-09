@@ -4,7 +4,7 @@ use Classes\Container;
 use Monolog\ErrorHandler;
 
 require __DIR__ . '/../config/projectConfiguration.php';
-$autoloader = require __DIR__ . '/../vendor/autoload.php';
+$autoloader = require_once __DIR__ . '/../vendor/autoload.php';
 
 $app = new \Slim\App(require __DIR__ . '/../config/settings.php');
 Container::setContainer($app->getContainer());

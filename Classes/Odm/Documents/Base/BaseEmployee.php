@@ -8,8 +8,11 @@
 
 
 namespace Classes\Odm\Documents\Base;
-use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Classes\Odm\Documents\Address;
+
+use Classes\Odm\Documents\Embedded\Address;
+use /** @noinspection PhpUnusedAliasInspection */
+    Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+
 use DateTime;
 
 /** @ODM\MappedSuperclass */
@@ -36,29 +39,74 @@ abstract class BaseEmployee
     /** @ODM\Field(type="date") */
     private $left;
 
-    /** @ODM\EmbedOne(targetDocument="Documents\Address") */
+    /** @ODM\EmbedOne(targetDocument="Classes\Odm\Documents\Embedded\Address") */
     private $address;
 
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
-    public function getChanges() { return $this->changes; }
-    public function incrementChanges() { $this->changes++; }
+    public function getChanges()
+    {
+        return $this->changes;
+    }
+    public function incrementChanges()
+    {
+        $this->changes++;
+    }
 
-    public function getNotes() { return $this->notes; }
-    public function addNote($note) { $this->notes[] = $note; }
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+    public function addNote($note)
+    {
+        $this->notes[] = $note;
+    }
 
-    public function getName() { return $this->name; }
-    public function setName($name) { $this->name = $name; }
+    public function getName()
+    {
+        return $this->name;
+    }
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
-    public function getSalary() { return $this->salary; }
-    public function setSalary($salary) { $this->salary = (int) $salary; }
+    public function getSalary()
+    {
+        return $this->salary;
+    }
+    public function setSalary($salary)
+    {
+        $this->salary = (int) $salary;
+    }
 
-    public function getStarted() { return $this->started; }
-    public function setStarted(DateTime $started) { $this->started = $started; }
+    public function getStarted()
+    {
+        return $this->started;
+    }
+    public function setStarted(DateTime $started)
+    {
+        $this->started = $started;
+    }
 
-    public function getLeft() { return $this->left; }
-    public function setLeft(DateTime $left) { $this->left = $left; }
+    public function getLeft()
+    {
+        return $this->left;
+    }
+    public function setLeft(DateTime $left)
+    {
+        $this->left = $left;
+    }
 
-    public function getAddress() { return $this->address; }
-    public function setAddress(Address $address) { $this->address = $address; }
+    public function getAddress()
+    {
+        return $this->address;
+    }
+    public function setAddress(Address $address)
+    {
+        $this->address = $address;
+    }
 }

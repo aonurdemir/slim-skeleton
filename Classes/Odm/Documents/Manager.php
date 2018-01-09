@@ -15,7 +15,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 /** @ODM\Document */
 class Manager extends BaseEmployee
 {
-    /** @ODM\ReferenceMany(targetDocument="Documents\Project") */
+    /** @ODM\ReferenceMany(targetDocument="Classes\Odm\Documents\Project") */
     private $projects;
 
     public function __construct() { $this->projects = new ArrayCollection(); }
