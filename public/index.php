@@ -11,7 +11,7 @@ Container::setContainer($app->getContainer());
 
 require __DIR__ . '/../config/dependencies.php';
 require __DIR__ . '/../config/middlewares.php';
-require __DIR__ . '/../config/routes.php';
+require __DIR__ . '/../config/routes/routes.php';
 
 //necessary for fcgi applications
 register_shutdown_function(function () {

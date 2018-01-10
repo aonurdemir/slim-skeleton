@@ -8,11 +8,13 @@
 
 
 use Classes\Container;
-use Doctrine\Common\Annotations\AnnotationRegistry;
-use Doctrine\MongoDB\Connection;
-use Doctrine\ODM\MongoDB\Configuration;
-use Doctrine\ODM\MongoDB\DocumentManager;
-use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
+use Classes\OAuthServer\Repositories\AccessTokenRepository;
+use Classes\OAuthServer\Repositories\ClientRepository;
+use Classes\OAuthServer\Repositories\RefreshTokenRepository;
+use Classes\OAuthServer\Repositories\ScopeRepository;
+use Classes\OAuthServer\Repositories\UserRepository;
+use League\OAuth2\Server\AuthorizationServer;
+use League\OAuth2\Server\Grant\PasswordGrant;
 use Monolog\ErrorHandler;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\RotatingFileHandler;
@@ -124,4 +126,27 @@ $container['view'] = new \Slim\Views\PhpRenderer("../templates/");
 
 $container['dm'] = function (/** @noinspection PhpUnusedParameterInspection */ $c) use ($autoloader) {
     return require __DIR__.'/odm-config.php';
+};
+
+$container[AuthorizationServer::class] = function () {
+
+    // Setup the authorization server
+    $server = new AuthorizationServer(
+        new ClientRepository(),                 // instance of ClientRepositoryInterface
+        new AccessTokenRepository(),            // instance of AccessTokenRepositoryInterface
+        new ScopeRepository(),                  // instance of ScopeRepositoryInterface
+        'file://' . __DIR__ . '/../private.key',    // path to private key
+        'lxZFUEsBCJ2Yb14IF2ygAHI5N4+ZAUXXaSeeJm6+twsUmIen'      // encryption key
+    );
+    $grant = new PasswordGrant(
+        new UserRepository(),           // instance of UserRepositoryInterface
+        new RefreshTokenRepository()    // instance of RefreshTokenRepositoryInterface
+    );
+    $grant->setRefreshTokenTTL(new \DateInterval('P1M')); // refresh tokens will expire after 1 month
+    // Enable the password grant on the server with a token TTL of 1 hour
+    $server->enableGrantType(
+        $grant,
+        new \DateInterval('PT1H') // access tokens will expire after 1 hour
+    );
+    return $server;
 };
