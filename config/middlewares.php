@@ -8,4 +8,4 @@
 
 use Classes\Session\SessionMiddleware;
 
-$app->add(new SessionMiddleware($app->getContainer()->get('settings')['session']));
+//$app->add(new SessionMiddleware($app->getContainer()->get('settings')['session']));
