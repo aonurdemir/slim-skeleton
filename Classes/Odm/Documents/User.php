@@ -20,6 +20,8 @@ class User
     /** @ODM\Field(type="string") @ODM\UniqueIndex(order="asc") */
     private $username;
     /** @ODM\Field(type="string") */
+    private $password;
+    /** @ODM\Field(type="string") */
     private $firstName;
     /** @ODM\Field(type="string") */
     private $lastName;
