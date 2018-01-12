@@ -5,7 +5,7 @@
  * Date: 8.01.2018
  * Time: 11:06
  */
-namespace Classes\Odm\Documents\Embedded;
+namespace Classes\Odm\Documents;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /** @ODM\EmbeddedDocument */
