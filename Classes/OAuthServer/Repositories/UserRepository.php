@@ -9,6 +9,7 @@
 
 namespace Classes\OAuthServer\Repositories;
 
+use Classes\Container;
 use Classes\OAuthServer\Entities\UserEntity;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Repositories\UserRepositoryInterface;
@@ -23,11 +24,13 @@ class UserRepository implements UserRepositoryInterface
         $password,
         $grantType,
         ClientEntityInterface $clientEntity
-    ) {
-        $container = Container::getContainer();
-        $dm = $container->get("dm");
+    )
+    {
+        $dm = Container::getContainer()->get('dm');
+        $user = $dm->getRepository('Classes\Odm\Documents\User')->findOneBy(array('username' => $username,'password' => $password));
 
-        if ($username === 'alex' && $password === 'whisky') {
+
+        if (isset($user) && !empty($user)) {
             return new UserEntity();
         }
 
