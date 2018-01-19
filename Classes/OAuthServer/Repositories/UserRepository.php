@@ -26,14 +26,17 @@ class UserRepository implements UserRepositoryInterface
         ClientEntityInterface $clientEntity
     )
     {
-        $dm = Container::getContainer()->get('dm');
-        $user = $dm->getRepository('Classes\Odm\Documents\User')->findOneBy(array('username' => $username,'password' => $password));
-
-
-        if (isset($user) && !empty($user)) {
+//        $dm = Container::getContainer()->get('dm');
+//        $user = $dm->getRepository('Classes\Odm\Documents\User')->findOneBy(array('username' => $username,'password' => $password));
+//
+//        if (isset($user) && !empty($user)) {
+//            return new UserEntity($user);
+//        }
+//
+//        return;
+        if ($username === 'alex' && $password === 'whisky') {
             return new UserEntity();
         }
-
         return;
     }
 }

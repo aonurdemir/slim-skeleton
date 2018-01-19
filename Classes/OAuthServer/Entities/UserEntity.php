@@ -9,10 +9,9 @@
 
 namespace Classes\OAuthServer\Entities;
 
-use Classes\Odm\Documents\User;
 use League\OAuth2\Server\Entities\UserEntityInterface;
 
-class UserEntity extends User implements UserEntityInterface
+class UserEntity implements UserEntityInterface
 {
 
     /**
@@ -22,6 +21,6 @@ class UserEntity extends User implements UserEntityInterface
      */
     public function getIdentifier()
     {
-        return $this->getId();
+        return 1;
     }
 }
